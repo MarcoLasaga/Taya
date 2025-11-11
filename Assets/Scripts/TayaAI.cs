@@ -1,49 +1,66 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
-[RequireComponent(typeof(NavMeshAgent))]
 public class TayaAI : MonoBehaviour
 {
-    public Transform player; // assign the player capsule here in Inspector
-    public float chaseRange = 30f; // how far taya can detect the player
-    public float catchDistance = 1.5f; // distance where taya catches player
-
     private NavMeshAgent agent;
+    public GameManager manager;
+    private float retargetTimer = 0f;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.stoppingDistance = 0.5f;
+        agent.autoBraking = false;
     }
 
     void Update()
     {
-        if (player == null)
-            return;
+        if (manager == null || !manager.gameRunning) return;
 
-        float distance = Vector3.Distance(transform.position, player.position);
-
-        // If player is within chase range, start chasing
-        if (distance <= chaseRange)
+        retargetTimer += Time.deltaTime;
+        if (retargetTimer >= 0.5f)
         {
-            agent.SetDestination(player.position);
-
-            // Optional: Face the player while moving
-            Vector3 direction = (player.position - transform.position).normalized;
-            direction.y = 0;
-            if (direction.magnitude > 0.1f)
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 5f);
+            Transform nearest = FindNearestTarget();
+            if (nearest != null)
+                agent.SetDestination(nearest.position);
+            retargetTimer = 0f;
         }
-        else
+    }
+
+    Transform FindNearestTarget()
+    {
+        Transform nearest = null;
+        float shortest = Mathf.Infinity;
+
+        List<GameObject> allTargets = new List<GameObject>();
+        allTargets.Add(manager.player);
+        allTargets.AddRange(manager.friends);
+
+        foreach (var target in allTargets)
         {
-            // Stop moving when out of range
-            agent.ResetPath();
+            if (target == null || target == gameObject) continue;
+            if (target == manager.currentTaya) continue; // skip current taya
+
+            float dist = Vector3.Distance(transform.position, target.transform.position);
+            if (dist < shortest)
+            {
+                shortest = dist;
+                nearest = target.transform;
+            }
         }
 
-        // If caught the player
-        if (distance <= catchDistance)
+        return nearest;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (!manager.gameRunning) return;
+
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Friend"))
         {
-            Debug.Log("Taya caught the player!");
-            agent.ResetPath();
+            manager.SwapTaya(collision.gameObject);
         }
     }
 }
