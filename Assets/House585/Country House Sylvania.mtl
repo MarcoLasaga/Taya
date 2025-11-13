@@ -1,0 +1,143 @@
+# FILE:Country House Sylvania.obj
+newmtl GDLM1_SHADOW_MATERIAL
+Ka 0.228885 0.228885 0.228885
+Kd 0.228885 0.228885 0.228885
+Ks 0 0 0
+illum 2
+Ns 0
+newmtl Paint_-_Glossy_White
+Ka 0.86 0.86 0.86
+Kd 0.81 0.81 0.81
+Ks 0.0892941 0.0892941 0.09
+illum 2
+Ns 0
+newmtl Metal_-_Zinc
+Ka 0.365257 0.369906 0.373607
+Kd 0.418385 0.423711 0.42795
+Ks 0.418353 0.418353 0.418353
+illum 2
+Ns 11
+map_Ka Country House Sylvania_Textures\Metal Zink 01a GS.jpg
+map_Kd Country House Sylvania_Textures\Metal Zink 01a GS.jpg
+map_Ks Country House Sylvania_Textures\Metal Zink 01a GS.jpg
+newmtl Wood_-_Pine_Grained_Horizontal
+Ka 0.501882 0.459529 0.389647
+Kd 0.697059 0.638235 0.541176
+Ks 0.343647 0.343647 0.343647
+illum 2
+Ns 0
+map_Ka Country House Sylvania_Textures\Pine Grain 01-opt GS.jpg
+map_Kd Country House Sylvania_Textures\Pine Grain 01-opt GS.jpg
+map_Ks Country House Sylvania_Textures\Pine Grain 01-opt GS.jpg
+newmtl Stonework_-_12
+Ka 0.446 0.446 0.446
+Kd 0.690863 0.690863 0.690863
+Ks 0.393451 0.393451 0.393451
+illum 2
+Ns 0
+map_Ka Country House Sylvania_Textures\Stone 09 GS.jpg
+map_Kd Country House Sylvania_Textures\Stone 09 GS.jpg
+map_Ks Country House Sylvania_Textures\Stone 09 GS.jpg
+newmtl Paint_-_Sienna_Sand
+Ka 0.630667 0.499137 0.381098
+Kd 0.594 0.470118 0.358941
+Ks 0.0891005 0.0891005 0.09
+illum 2
+Ns 2.2
+newmtl PEN_MATERIAL87
+Ka 0.44036 0.44036 0.44036
+Kd 0.44036 0.44036 0.44036
+Ks 0 0 0
+illum 2
+Ns 0
+newmtl Wood_-_Oak_Light
+Ka 0.553412 0.412588 0.202588
+Kd 0.746667 0.556667 0.273333
+Ks 0.0657053 0.0519249 0.045153
+illum 2
+Ns 5
+map_Ka Country House Sylvania_Textures\Oak Light Base GS.jpg
+map_Kd Country House Sylvania_Textures\Oak Light Base GS.jpg
+map_Ks Country House Sylvania_Textures\Oak Light Base GS.jpg
+newmtl Roof_Tiles_-_Asphalt_Shingle_Gray
+Ka 0.46 0.44 0.416667
+Kd 0.465412 0.445176 0.421569
+Ks 0.438549 0.438549 0.438549
+illum 2
+Ns 0
+map_Ka Country House Sylvania_Textures\Shingle Asphalt Gray Alpha GS.jpg
+map_Kd Country House Sylvania_Textures\Shingle Asphalt Gray Alpha GS.jpg
+map_Ks Country House Sylvania_Textures\Shingle Asphalt Gray Alpha GS.jpg
+newmtl Paint_-_Peach
+Ka 0.626471 0.423216 0.356392
+Kd 0.714706 0.482824 0.406588
+Ks 0.0891005 0.0891005 0.09
+illum 2
+Ns 2.2
+newmtl Wood_-_Pine_Grained_Vertical
+Ka 0.511176 0.468039 0.396863
+Kd 0.697059 0.638235 0.541176
+Ks 0.268941 0.268941 0.268941
+illum 2
+Ns 0
+map_Ka Country House Sylvania_Textures\Pine Grain Vertical-opt 01 GS.jpg
+map_Kd Country House Sylvania_Textures\Pine Grain Vertical-opt 01 GS.jpg
+map_Ks Country House Sylvania_Textures\Pine Grain Vertical-opt 01 GS.jpg
+newmtl Paint_-_Light_Gray
+Ka 0.467765 0.467765 0.467765
+Kd 0.540235 0.540235 0.540235
+Ks 0.366667 0.366667 0.366667
+illum 2
+Ns 11
+newmtl Concrete_-_04
+Ka 0.322824 0.324745 0.303608
+Kd 0.474353 0.477176 0.446118
+Ks 0.356948 0.3491 0.306226
+illum 2
+Ns 0
+map_Ka Country House Sylvania_Textures\Poured Concrete 01 GS.jpg
+map_Kd Country House Sylvania_Textures\Poured Concrete 01 GS.jpg
+map_Ks Country House Sylvania_Textures\Poured Concrete 01 GS.jpg
+newmtl Paint_-_Golden_Ochre
+Ka 0.688 0.505882 0.229333
+Kd 0.648 0.476471 0.216
+Ks 0.0891005 0.0891005 0.09
+illum 2
+Ns 2.2
+newmtl Tiles_-_Tan_30x30
+Ka 0.498431 0.481412 0.452235
+Kd 0.30549 0.295059 0.277176
+Ks 0.27 0.27 0.27
+illum 2
+Ns 31
+map_Ka Country House Sylvania_Textures\Tiles Floor Alpha GS.jpg
+map_Kd Country House Sylvania_Textures\Tiles Floor Alpha GS.jpg
+map_Ks Country House Sylvania_Textures\Tiles Floor Alpha GS.jpg
+newmtl GDLM16_PEN_MATERIAL0
+Ka 0.844892 0.844892 0.844892
+Kd 0.844892 0.844892 0.844892
+Ks 0 0 0
+illum 2
+Ns 0
+newmtl Brick_-_Running_Bond
+Ka 0.459804 0.236471 0.197059
+Kd 0.42549 0.218824 0.182353
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Country House Sylvania_Textures\Brick Running Alpha GS.jpg
+map_Kd Country House Sylvania_Textures\Brick Running Alpha GS.jpg
+map_Ks Country House Sylvania_Textures\Brick Running Alpha GS.jpg
+newmtl Glass_-_Clear_Fast
+Ka 0.64 0.658667 0.648
+Kd 0.564706 0.581176 0.571765
+Ks 1 1 1
+illum 2
+d 0.31
+Ns 79.52
+newmtl GDLM19_Opaque
+Ka 0 0 0
+Kd 0 0 0
+Ks 0 0 0
+illum 2
+Ns 0
