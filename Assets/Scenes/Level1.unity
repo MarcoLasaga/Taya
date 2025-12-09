@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.35, g: 0.34209046, b: 0.31836182, a: 0.35}
+  m_AmbientSkyColor: {r: 0.35, g: 0.33270398, b: 0.28081602, a: 0.35}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -746,45 +746,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: ed24b3064372d664fa286d9530736da0, type: 2}
   pickupPrompt: {fileID: 6768964373551987404, guid: 501edbd5ef67c1d428daed396182efe5, type: 3}
---- !u!114 &29294758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29294754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec1c620b32fdf8a44bb65d937fe27553, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hotbarItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  hotbarSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &29294759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29294754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaabedba67e439946ada9dcc64b32dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items: []
-  maxSlots: 30
-  playerHotbar: {fileID: 29294758}
 --- !u!1001 &33099475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63837,12 +63798,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1367660652193534, guid: 81d26dcff31f3ee45a7af58439d44b2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1120528230}
-    - targetCorrespondingSourceObject: {fileID: 1367660652193534, guid: 81d26dcff31f3ee45a7af58439d44b2e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1120528233}
-    - targetCorrespondingSourceObject: {fileID: 1367660652193534, guid: 81d26dcff31f3ee45a7af58439d44b2e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1120528234}
     - targetCorrespondingSourceObject: {fileID: 1036057936651256, guid: 81d26dcff31f3ee45a7af58439d44b2e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1038710836}
@@ -195662,45 +195617,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 444c08bc6acbe1245aef8655e474939b, type: 2}
   pickupPrompt: {fileID: 6768964373551987404, guid: 501edbd5ef67c1d428daed396182efe5, type: 3}
---- !u!114 &1120528233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120528229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec1c620b32fdf8a44bb65d937fe27553, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hotbarItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  hotbarSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &1120528234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1120528229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaabedba67e439946ada9dcc64b32dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items: []
-  maxSlots: 30
-  playerHotbar: {fileID: 1120528233}
 --- !u!64 &1137040294
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -197171,12 +197087,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 695497795550067185, guid: dd9970b340623644eb4b3204eee4458e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 29294755}
-    - targetCorrespondingSourceObject: {fileID: 695497795550067185, guid: dd9970b340623644eb4b3204eee4458e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 29294758}
-    - targetCorrespondingSourceObject: {fileID: 695497795550067185, guid: dd9970b340623644eb4b3204eee4458e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 29294759}
   m_SourcePrefab: {fileID: 100100000, guid: dd9970b340623644eb4b3204eee4458e, type: 3}
 --- !u!64 &1163086443
 MeshCollider:
@@ -355096,8 +355006,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9774013, b: 0.90960526, a: 1}
-  m_Intensity: 1.0192105
+  m_Color: {r: 1, g: 0.95058286, b: 0.80233145, a: 1}
+  m_Intensity: 0.8046629
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -355155,7 +355065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947632070}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3838492, y: 0.10887418, z: -0.045632686, w: 0.9158187}
+  m_LocalRotation: {x: 0.33155867, y: 0.24034996, z: -0.08775723, w: 0.9080746}
   m_LocalPosition: {x: 0, y: 7.058999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -376360,7 +376270,7 @@ MonoBehaviour:
   timeScale: 1
   totalCycleSeconds: 0
   exposePhaseTimeLeft: 1
-  currentPhaseTimeLeft: 4.5197377
+  currentPhaseTimeLeft: 9.883428
   blendSkybox: 1
 --- !u!114 &2125292291
 MonoBehaviour:

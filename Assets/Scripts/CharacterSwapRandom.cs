@@ -16,7 +16,7 @@ public class CharacterSwapRandom : MonoBehaviour
     public Vector2 intervalRange = new Vector2(8f, 15f);
 
     [Tooltip("Random duration to stay as the alternate character when a swap occurs.")]
-    public Vector2 durationRange = new Vector2(0.5f, 1.5f);
+    public Vector2 durationRange = new Vector2(5f, 5f);
 
     [Header("Chance")]
     [Tooltip("Chance (0-1) to perform a swap on each attempt.")]
@@ -143,8 +143,16 @@ public class CharacterSwapRandom : MonoBehaviour
         // This check prevents errors when trying to set active state while the root object is already being deactivated.
         if (!gameObject.activeInHierarchy) return;
 
-        if (characterNormal) characterNormal.SetActive(normalOn);
-        if (characterAlternate) characterAlternate.SetActive(!normalOn);
+        if (normalOn)
+        {
+            if (characterNormal) characterNormal.SetActive(true);
+            if (characterAlternate) characterAlternate.SetActive(false);
+        }
+        else
+        {
+            if (characterNormal) characterNormal.SetActive(false);
+            if (characterAlternate) characterAlternate.SetActive(true);
+        }
     }
 
     void CopyPose(GameObject from, GameObject to)
