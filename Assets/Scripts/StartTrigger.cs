@@ -8,11 +8,14 @@ public class StartTrigger : MonoBehaviour
         var gm = FindObjectOfType<GameManager>();
         if (gm == null) return;
 
+        // If we're awaiting the end interaction (after the game ended), ignore
+        // start-cube triggers so the player can't accidentally restart the game
+        if (gm.awaitingEndInteraction) return;
+
         // If game hasn't been unlocked yet, treat this as the start-cube trigger
         if (!gm.gameUnlocked)
         {
             gm.OnStartCubeTriggered(other.gameObject);
-            // keep the trigger active so it can be used again at end
             return;
         }
 

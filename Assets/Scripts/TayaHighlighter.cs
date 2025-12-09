@@ -78,20 +78,24 @@ public class TayaHighlighter : MonoBehaviour
         SkinnedMeshRenderer[] skinnedMeshes = taya.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (var mesh in skinnedMeshes)
         {
-            foreach (var mat in mesh.materials)
+            var mats = GetMaterialsSafe(mesh);
+            foreach (var mat in mats)
             {
-                mat.SetFloat("_Smoothness", 0f);
-                mat.SetColor("_EmissionColor", tayaGlowColor * tayaGlowIntensity);
+                if (mat == null) continue;
+                if (mat.HasProperty("_Smoothness")) mat.SetFloat("_Smoothness", 0f);
+                if (mat.HasProperty("_EmissionColor")) mat.SetColor("_EmissionColor", tayaGlowColor * tayaGlowIntensity);
             }
         }
 
         MeshRenderer[] meshes = taya.GetComponentsInChildren<MeshRenderer>();
         foreach (var mesh in meshes)
         {
-            foreach (var mat in mesh.materials)
+            var mats = GetMaterialsSafe(mesh);
+            foreach (var mat in mats)
             {
-                mat.SetFloat("_Smoothness", 0f);
-                mat.SetColor("_EmissionColor", tayaGlowColor * tayaGlowIntensity);
+                if (mat == null) continue;
+                if (mat.HasProperty("_Smoothness")) mat.SetFloat("_Smoothness", 0f);
+                if (mat.HasProperty("_EmissionColor")) mat.SetColor("_EmissionColor", tayaGlowColor * tayaGlowIntensity);
             }
         }
 
@@ -108,22 +112,32 @@ public class TayaHighlighter : MonoBehaviour
     {
         if (taya == null) return;
 
+        // Don't remove glow/trail from hallucination; keep its appearance
+        if (taya.CompareTag("Hallucination"))
+        {
+            return;
+        }
+
         // Remove emission glow
         SkinnedMeshRenderer[] skinnedMeshes = taya.GetComponentsInChildren<SkinnedMeshRenderer>();
         foreach (var mesh in skinnedMeshes)
         {
-            foreach (var mat in mesh.materials)
+            var mats = GetMaterialsSafe(mesh);
+            foreach (var mat in mats)
             {
-                mat.SetColor("_EmissionColor", Color.black);
+                if (mat == null) continue;
+                if (mat.HasProperty("_EmissionColor")) mat.SetColor("_EmissionColor", Color.black);
             }
         }
 
         MeshRenderer[] meshes = taya.GetComponentsInChildren<MeshRenderer>();
         foreach (var mesh in meshes)
         {
-            foreach (var mat in mesh.materials)
+            var mats = GetMaterialsSafe(mesh);
+            foreach (var mat in mats)
             {
-                mat.SetColor("_EmissionColor", Color.black);
+                if (mat == null) continue;
+                if (mat.HasProperty("_EmissionColor")) mat.SetColor("_EmissionColor", Color.black);
             }
         }
 
@@ -149,11 +163,18 @@ public class TayaHighlighter : MonoBehaviour
                 continue;
             }
 
+            // Skip desaturating the hallucination (keep its custom tall appearance)
+            if (friend.CompareTag("Hallucination"))
+            {
+                continue;
+            }
+
             // Desaturate non-current Taya characters
             SkinnedMeshRenderer[] skinnedMeshes = friend.GetComponentsInChildren<SkinnedMeshRenderer>();
             foreach (var mesh in skinnedMeshes)
             {
-                foreach (var mat in mesh.materials)
+                var mats = GetMaterialsSafe(mesh);
+                foreach (var mat in mats)
                 {
                     ApplyDesaturation(mat, desaturationAmount);
                 }
@@ -162,11 +183,35 @@ public class TayaHighlighter : MonoBehaviour
             MeshRenderer[] meshes = friend.GetComponentsInChildren<MeshRenderer>();
             foreach (var mesh in meshes)
             {
-                foreach (var mat in mesh.materials)
+                var mats = GetMaterialsSafe(mesh);
+                foreach (var mat in mats)
                 {
                     ApplyDesaturation(mat, desaturationAmount);
                 }
             }
+        }
+    }
+
+    // Safely get materials for a renderer without triggering prefab instantiation warnings
+    private Material[] GetMaterialsSafe(Renderer rend)
+    {
+        if (rend == null) return new Material[0];
+
+        // If the renderer's GameObject is not part of a loaded scene (likely a prefab asset),
+        // avoid accessing `materials` which creates instances and can throw warnings/errors.
+        if (!rend.gameObject.scene.IsValid())
+        {
+            return rend.sharedMaterials ?? new Material[0];
+        }
+
+        // For scene instances, try to return instance materials. Fall back to sharedMaterials on error.
+        try
+        {
+            return rend.materials ?? rend.sharedMaterials ?? new Material[0];
+        }
+        catch
+        {
+            return rend.sharedMaterials ?? new Material[0];
         }
     }
 

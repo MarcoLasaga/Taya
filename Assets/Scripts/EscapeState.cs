@@ -4,7 +4,7 @@ public class EscapeState : BaseState
 {
     public override void EnterState(NPCStateMachine npc)
     {
-        npc.agent.speed = npc.escapeSpeed;
+        if (npc.agent != null) npc.agent.speed = npc.escapeSpeed;
     }
 
     public override void UpdateState(NPCStateMachine npc)
@@ -16,7 +16,8 @@ public class EscapeState : BaseState
         Vector3 dir = (npc.transform.position - taya.transform.position).normalized;
         Vector3 newPos = npc.transform.position + dir * 5f;
 
-        npc.agent.SetDestination(newPos);
+        if (npc.agent != null)
+            npc.agent.SetDestination(newPos);
 
         if (Vector3.Distance(npc.transform.position, taya.transform.position) > 12f)
         {
@@ -26,6 +27,6 @@ public class EscapeState : BaseState
 
     public override void ExitState(NPCStateMachine npc)
     {
-        npc.agent.speed = npc.wanderSpeed;
+        if (npc.agent != null) npc.agent.speed = npc.wanderSpeed;
     }
 }

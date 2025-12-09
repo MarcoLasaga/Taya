@@ -12,7 +12,13 @@ public class WanderState : BaseState
             Random.Range(-10f, 10f)
         );
 
-        npc.agent.SetDestination(target);
+        if (npc.agent != null)
+        {
+            npc.agent.SetDestination(target);
+            npc.agent.isStopped = false;
+            npc.agent.speed = npc.wanderSpeed;
+        }
+        npc.SetRunningAnimation();
     }
 
     public override void UpdateState(NPCStateMachine npc)
@@ -24,9 +30,12 @@ public class WanderState : BaseState
             return;
         }
 
-        if (!npc.agent.pathPending && npc.agent.remainingDistance < 1f)
+        if (npc.agent != null)
         {
-            npc.SwitchState(npc.wanderState);
+            if (!npc.agent.pathPending && npc.agent.remainingDistance < 1f)
+            {
+                npc.SwitchState(npc.wanderState);
+            }
         }
     }
 

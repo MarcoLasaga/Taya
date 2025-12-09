@@ -10,6 +10,7 @@ public class NPCStateMachine : MonoBehaviour
     [Header("Components")]
     public NavMeshAgent agent;
     public Animator anim;
+    public Animation legacyAnimation;
     public AudioSource audioSource;
 
     [Header("Settings")]
@@ -18,24 +19,28 @@ public class NPCStateMachine : MonoBehaviour
     public float tayaSpeed = 5f;
     public float escapeSpeed = 4f;
 
+    [Header("Animation Clips")]
+    [Tooltip("Animation clip to play when NPC is running/moving")]
+    public AnimationClip runningAnimation;
+    [Tooltip("Animation clip to play when NPC is standing/idle")]
+    public AnimationClip standingAnimation;
+
     [HideInInspector] public GameManager GM;
-    // Debug tagging speed overrides (for debugging only)
+
     [Header("Debug Tag Speeds")]
     public bool debugTagSpeeds = false;
     public float debugTayaSpeedOnTag = 15f;
     public float debugEscapeeSpeedOnTag = 0.5f;
     public float debugTagDuration = 2f;
 
-    // internal for temporary speed overrides
     private Coroutine speedCoroutine = null;
     private float previousSpeed = 0f;
-    // Tag/chase helpers: how long to attempt tagging the current target
-    // before switching to a different target (in seconds).
+
     public float tagTimeout = 2f;
     [HideInInspector] public GameObject chaseTarget = null;
     [HideInInspector] public float chaseTimer = 0f;
 
-    // FSM
+    // === FSM START ===
     public BaseState currentState;
 
     public IdleState idleState = new IdleState();
@@ -44,28 +49,83 @@ public class NPCStateMachine : MonoBehaviour
     public EscapeState escapeState = new EscapeState();
     public TayaState tayaState = new TayaState();
 
+    private int isRunningHash = Animator.StringToHash("isRunning");
+    private int isIdleHash = Animator.StringToHash("isIdle");
+    // === FSM END ===
+
     void Start()
     {
         GM = FindObjectOfType<GameManager>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        legacyAnimation = GetComponent<Animation>();
         audioSource = GetComponent<AudioSource>();
 
-        // Remove agent avoidance and stopping space so NPCs can contact each other.
-        // This disables NavMeshAgent obstacle avoidance (agents won't steer
-        // away from each other) and reduces stopping distance/radius so
-        // they can come into collider contact.
         if (agent != null)
         {
             agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             agent.stoppingDistance = 0f;
-            // shrink the agent radius so agents don't keep a buffer between them
             agent.radius = 0.1f;
-            // reduce auto-braking so agents don't slow down early
             agent.autoBraking = false;
         }
 
         SwitchState(idleState);
+    }
+
+    public void SetRunningAnimation()
+    {
+        Debug.Log($"[NPCStateMachine] SetRunningAnimation called for {name}. runningAnimation = {(runningAnimation != null ? runningAnimation.name : "NULL")}");
+
+        if (runningAnimation != null)
+        {
+            if (legacyAnimation != null)
+            {
+                Debug.Log($"[NPCStateMachine] Playing running animation '{runningAnimation.name}' via legacy Animation");
+                legacyAnimation.CrossFade(runningAnimation.name, 0.3f);
+            }
+            else if (anim != null)
+            {
+                Debug.Log($"[NPCStateMachine] Playing running animation via Animator (isRunning=true, isIdle=false)");
+                anim.SetBool(isRunningHash, true);
+                anim.SetBool(isIdleHash, false);
+            }
+            else
+            {
+                Debug.LogWarning($"[NPCStateMachine] No Animation or Animator component found on {name}!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[NPCStateMachine] runningAnimation is not assigned on {name}");
+        }
+    }
+
+    public void SetIdleAnimation()
+    {
+        Debug.Log($"[NPCStateMachine] SetIdleAnimation called for {name}. standingAnimation = {(standingAnimation != null ? standingAnimation.name : "NULL")}");
+
+        if (standingAnimation != null)
+        {
+            if (legacyAnimation != null)
+            {
+                Debug.Log($"[NPCStateMachine] Playing idle animation '{standingAnimation.name}' via legacy Animation");
+                legacyAnimation.CrossFade(standingAnimation.name, 0.3f);
+            }
+            else if (anim != null)
+            {
+                Debug.Log($"[NPCStateMachine] Playing idle animation via Animator (isRunning=false, isIdle=true)");
+                anim.SetBool(isRunningHash, false);
+                anim.SetBool(isIdleHash, true);
+            }
+            else
+            {
+                Debug.LogWarning($"[NPCStateMachine] No Animation or Animator component found on {name}!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[NPCStateMachine] standingAnimation is not assigned on {name}");
+        }
     }
 
     void Update()
@@ -88,7 +148,8 @@ public class NPCStateMachine : MonoBehaviour
     {
         if (!GM.gameRunning) return;
 
-        if (isTaya)
+        // Prevent hallucinations from tagging others (only normal Taya can swap)
+        if (isTaya && !gameObject.CompareTag("Hallucination"))
         {
             if (col.gameObject.CompareTag("Player"))
                 GM.SwapTaya(col.gameObject);
@@ -98,25 +159,17 @@ public class NPCStateMachine : MonoBehaviour
             {
                 GM.SwapTaya(f.gameObject);
 
-                // Debug behavior: when a Taya tags another NPC, temporarily
-                // make the Taya extremely fast and the tagged NPC very slow
-                // to make the swap visible for debugging.
                 if (debugTagSpeeds)
                 {
-                    // slow the tagged NPC
                     f.ApplyTemporarySpeed(debugEscapeeSpeedOnTag, debugTagDuration);
-                    // speed up the current (this) Taya
                     this.ApplyTemporarySpeed(debugTayaSpeedOnTag, debugTagDuration);
                 }
             }
         }
     }
 
-    // Applies a temporary speed to this NPC's NavMeshAgent for a duration,
-    // then restores an appropriate speed depending on current state.
     public void ApplyTemporarySpeed(float speed, float duration)
     {
-        // stop any existing temp speed coroutine
         if (speedCoroutine != null) StopCoroutine(speedCoroutine);
         previousSpeed = agent != null ? agent.speed : 0f;
         speedCoroutine = StartCoroutine(TemporarySpeedCoroutine(speed, duration));
@@ -132,7 +185,6 @@ public class NPCStateMachine : MonoBehaviour
             yield return null;
         }
 
-        // restore speed according to state (prefer role-specific speeds)
         if (agent != null)
         {
             if (currentState == tayaState)

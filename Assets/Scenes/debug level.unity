@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2297157, g: 0.2450205, b: 0.32373974, a: 0.35}
+  m_AmbientSkyColor: {r: 0.35, g: 0.25439575, b: 0.19065958, a: 0.35}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -55432,16 +55432,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519082268}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 637352f58c2f08048aa78460d2bb274b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   renderWidth: 512
   renderHeight: 384
-  colorLevels: 52
-  scanlineIntensity: 0.693
-  saturation: 1.4
+  colorLevels: 16
+  scanlineIntensity: 0.25
+  saturation: 0.9
   shader: {fileID: 4800000, guid: 35dd10760c0eb39419ce3b4edf4c161b, type: 3}
 --- !u!114 &519082273
 MonoBehaviour:
@@ -55450,7 +55450,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519082268}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b29a4e1164df8184a8df4d5b93e0a14e, type: 3}
   m_Name: 
@@ -55561,7 +55561,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519082268}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49e4a7d344f4fd0418303742cb01fe10, type: 3}
   m_Name: 
@@ -55579,7 +55579,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519082268}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 523354709ff7fd04e8a0867b5dcd4654, type: 3}
   m_Name: 
@@ -355706,8 +355706,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.6563306, g: 0.7000586, b: 0.9249707, a: 1}
-  m_Intensity: 0.4250879
+  m_Color: {r: 1, g: 0.72684497, b: 0.54474163, a: 1}
+  m_Intensity: 0.65369004
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -355765,7 +355765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947632070}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.90760577, y: 0.08857108, z: -0.24319224, w: 0.33055177}
+  m_LocalRotation: {x: 0.86709046, y: -0.07570148, z: 0.13896559, w: 0.4723474}
   m_LocalPosition: {x: 0, y: 7.058999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -376919,7 +376919,7 @@ MonoBehaviour:
   tayaNameText: {fileID: 242531931}
   timerText: {fileID: 879647332}
   subtitlesText: {fileID: 762719610}
-  gameDuration: 250
+  gameDuration: 10000
   gameRunning: 0
   gameUnlocked: 0
   currentTaya: {fileID: 242531929}
@@ -376931,9 +376931,9 @@ MonoBehaviour:
   voiceSource: {fileID: 0}
   endVoiceClip: {fileID: 0}
   awaitingEndInteraction: 0
-  swapCooldown: 1
+  swapCooldown: 0.5
   startCubeAutoStart: 0
-  showDebugUI: 0
+  showDebugUI: 1
   nextSceneName: Cutscene2
 --- !u!4 &2125292288
 Transform:
@@ -376969,31 +376969,31 @@ MonoBehaviour:
     intensity: 0.8
     skyboxMaterial: {fileID: 2100000, guid: 8cfb6587f2b62dd499037b5ce816cb16, type: 2}
     eulerRotation: {x: 40, y: 30, z: 0}
-    duration: 10
+    duration: 2
   - name: Noon
     lightColor: {r: 1, g: 1, b: 1, a: 1}
     intensity: 1.2
     skyboxMaterial: {fileID: 2100000, guid: 982e0d86f860c1246b831a8bccaf59f2, type: 2}
     eulerRotation: {x: 50, y: 0, z: 0}
-    duration: 10
+    duration: 2
   - name: Evening
     lightColor: {r: 1, g: 0.7, b: 0.5, a: 1}
     intensity: 0.6
     skyboxMaterial: {fileID: 2100000, guid: 7d42abe82073d7d42bf23b70f5973ac0, type: 2}
     eulerRotation: {x: 130, y: -20, z: 0}
-    duration: 10
+    duration: 2
   - name: Night
     lightColor: {r: 0.45, g: 0.55, b: 1, a: 1}
     intensity: 0.2
     skyboxMaterial: {fileID: 2100000, guid: 7e94338dca7ded64cac2bbdb6b63be08, type: 2}
     eulerRotation: {x: 200, y: 30, z: 0}
-    duration: 10
+    duration: 2
   autoStart: 1
   loop: 1
   timeScale: 1
   totalCycleSeconds: 0
   exposePhaseTimeLeft: 1
-  currentPhaseTimeLeft: 6.248535
+  currentPhaseTimeLeft: 0.17896664
   blendSkybox: 1
 --- !u!114 &2125292291
 MonoBehaviour:

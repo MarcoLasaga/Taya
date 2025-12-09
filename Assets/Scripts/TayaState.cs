@@ -4,7 +4,12 @@ public class TayaState : BaseState
 {
     public override void EnterState(NPCStateMachine npc)
     {
-        npc.agent.speed = npc.tayaSpeed;
+        if (npc.agent != null)
+        {
+            npc.agent.isStopped = false;
+            npc.agent.speed = npc.tayaSpeed;
+        }
+        npc.SetRunningAnimation();
         // mark this NPC as the active Taya and reset chase helpers
         npc.isTaya = true;
         npc.chaseTarget = null;
@@ -22,8 +27,9 @@ public class TayaState : BaseState
 
         if (npc.chaseTarget != null)
         {
-            // set destination
-            npc.agent.SetDestination(npc.chaseTarget.transform.position);
+            // set destination if agent available
+            if (npc.agent != null)
+                npc.agent.SetDestination(npc.chaseTarget.transform.position);
 
             // increment timer; if exceeded, pick a different target
             npc.chaseTimer += Time.deltaTime;
@@ -39,7 +45,7 @@ public class TayaState : BaseState
 
     public override void ExitState(NPCStateMachine npc)
     {
-        npc.agent.speed = npc.wanderSpeed;
+        if (npc.agent != null) npc.agent.speed = npc.wanderSpeed;
         // clear taya flag and chase helpers
         npc.isTaya = false;
         npc.chaseTarget = null;

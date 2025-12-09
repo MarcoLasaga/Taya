@@ -51,6 +51,12 @@ public class GameManager : MonoBehaviour
     public bool showDebugUI = true;
 
     private float remainingTime;
+    // Expose remaining time for external scripts (read-only)
+    public float RemainingTime { get { return remainingTime; } }
+    // Player speed slow state (applied when 60s left)
+    private bool playerSpeedReduced = false;
+    private float savedWalkSpeed = -1f;
+    private float savedSprintSpeed = -1f;
 
     void Start()
     {
@@ -121,6 +127,12 @@ public class GameManager : MonoBehaviour
             subtitlesText.text = "Do you want to play? Press Y to start";
             subtitlesText.gameObject.SetActive(true);
         }
+        // Also show the main game message text so the prompt appears like other UI
+        if (gameMessageText != null)
+        {
+            gameMessageText.text = "Press Y to start";
+            gameMessageText.gameObject.SetActive(true);
+        }
     }
 
     // Called by a start-cube trigger when the player steps on it.
@@ -186,6 +198,24 @@ public class GameManager : MonoBehaviour
 
         if (timerText) timerText.text = $"Time: {min:00}:{sec:00}";
 
+        // When we reach 60 seconds remaining, apply a 50% speed reduction to the player
+        if (!playerSpeedReduced && remainingTime <= 60f)
+        {
+            if (player != null)
+            {
+                var pc = player.GetComponent<PlayerControllerWithCamera>();
+                if (pc != null)
+                {
+                    savedWalkSpeed = pc.walkSpeed;
+                    savedSprintSpeed = pc.sprintSpeed;
+                    pc.walkSpeed *= 0.5f;
+                    pc.sprintSpeed *= 0.5f;
+                    playerSpeedReduced = true;
+                    Debug.Log("[GameManager] Player speed reduced by 50% at 60s remaining.");
+                }
+            }
+        }
+
         if (remainingTime <= 0)
             EndGame();
     }
@@ -208,6 +238,19 @@ public class GameManager : MonoBehaviour
             var pc = player.GetComponent<PlayerControllerWithCamera>();
             if (pc != null)
                 pc.HideCooldownUI();
+        }
+
+        // Restore player speed if it was reduced
+        if (playerSpeedReduced && player != null)
+        {
+            var pc2 = player.GetComponent<PlayerControllerWithCamera>();
+            if (pc2 != null)
+            {
+                if (savedWalkSpeed > 0f) pc2.walkSpeed = savedWalkSpeed;
+                if (savedSprintSpeed > 0f) pc2.sprintSpeed = savedSprintSpeed;
+            }
+            playerSpeedReduced = false;
+            savedWalkSpeed = savedSprintSpeed = -1f;
         }
 
         // cleanup current Taya glow and reset color
@@ -404,7 +447,7 @@ public class GameManager : MonoBehaviour
         // If the player is currently the Taya, don't allow other NPCs/friends
         // to steal the Taya role via background collisions/proximity checks.
         // This prevents unexpected swaps where the player remains 'the Taya'
-        // visually but another friend becomes currentTaya.
+        // visually but another friend becomes currentT aya.
         if (player != null && currentTaya == player)
         {
             return false;

@@ -4,7 +4,12 @@ public class ChaseState : BaseState
 {
     public override void EnterState(NPCStateMachine npc)
     {
-        npc.agent.speed = npc.tayaSpeed;
+        if (npc.agent != null)
+        {
+            npc.agent.isStopped = false;
+            npc.agent.speed = npc.tayaSpeed;
+        }
+        npc.SetRunningAnimation();
     }
 
     public override void UpdateState(NPCStateMachine npc)
@@ -18,7 +23,8 @@ public class ChaseState : BaseState
         GameObject target = npc.GM.GetNearestNonTaya(npc.transform.position);
         if (target == null) return;
 
-        npc.agent.SetDestination(target.transform.position);
+        if (npc.agent != null)
+            npc.agent.SetDestination(target.transform.position);
     }
 
     public override void ExitState(NPCStateMachine npc) { }
