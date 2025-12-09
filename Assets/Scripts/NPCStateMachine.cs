@@ -34,6 +34,7 @@ public class NPCStateMachine : MonoBehaviour
     public float debugTagDuration = 2f;
 
     private Coroutine speedCoroutine = null;
+    private MonoBehaviour speedCoroutineRunner = null;
     private float previousSpeed = 0f;
 
     public float tagTimeout = 2f;
@@ -173,18 +174,28 @@ public class NPCStateMachine : MonoBehaviour
 
                 if (debugTagSpeeds)
                 {
-                    f.ApplyTemporarySpeed(debugEscapeeSpeedOnTag, debugTagDuration);
-                    this.ApplyTemporarySpeed(debugTayaSpeedOnTag, debugTagDuration);
+                    f.ApplyTemporarySpeed(f, debugEscapeeSpeedOnTag, debugTagDuration);
+                    this.ApplyTemporarySpeed(this, debugTayaSpeedOnTag, debugTagDuration);
                 }
             }
         }
     }
 
+    public void ApplyTemporarySpeed(MonoBehaviour coroutineRunner, float speed, float duration)
+    {
+        if (speedCoroutine != null && speedCoroutineRunner != null)
+        {
+            speedCoroutineRunner.StopCoroutine(speedCoroutine);
+        }
+        
+        speedCoroutineRunner = coroutineRunner;
+        previousSpeed = agent != null ? agent.speed : 0f;
+        speedCoroutine = speedCoroutineRunner.StartCoroutine(TemporarySpeedCoroutine(speed, duration));
+    }
+
     public void ApplyTemporarySpeed(float speed, float duration)
     {
-        if (speedCoroutine != null) StopCoroutine(speedCoroutine);
-        previousSpeed = agent != null ? agent.speed : 0f;
-        speedCoroutine = StartCoroutine(TemporarySpeedCoroutine(speed, duration));
+        ApplyTemporarySpeed(this, speed, duration);
     }
 
     private IEnumerator TemporarySpeedCoroutine(float speed, float duration)
@@ -199,10 +210,7 @@ public class NPCStateMachine : MonoBehaviour
 
         if (agent != null)
         {
-            if (currentState == tayaState)
-                agent.speed = tayaSpeed;
-            else
-                agent.speed = wanderSpeed;
+            agent.speed = previousSpeed;
         }
 
         speedCoroutine = null;

@@ -9,7 +9,10 @@ public class IdleState : BaseState
     {
         idleDuration = Random.Range(1.0f, 3.0f);
         elapsed = 0f;
-        if (npc.agent != null) npc.agent.isStopped = true;
+        if (npc.agent != null && npc.agent.isOnNavMesh)
+        {
+            npc.agent.isStopped = true;
+        }
         npc.SetIdleAnimation();
     }
 

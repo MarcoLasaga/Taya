@@ -30,7 +30,7 @@ public class WanderState : BaseState
             return;
         }
 
-        if (npc.agent != null)
+        if (npc.agent != null && npc.agent.isOnNavMesh)
         {
             if (!npc.agent.pathPending && npc.agent.remainingDistance < 1f)
             {

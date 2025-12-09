@@ -1,0 +1,20 @@
+Thank you for the detailed observations! This helps a lot.
+
+Based on your report ("Grim Reaper is visible for a quick second just standing and not running and the npc is still visible"), I've made further adjustments to `CharacterSwapRandom.cs` to diagnose and hopefully fix these issues.
+
+Here's what I've added:
+1.  **Visibility Check:** After deactivating `characterNormal`, the script will now log an `ERROR` if `characterNormal` is still active. This will tell us if the original NPC model is truly being hidden.
+2.  **Forced Animation:** The script will now explicitly call `npcStateMachine.SetRunningAnimation()` right after the swap, attempting to force the Grim Reaper to run.
+
+**It is still critical that your prefab structure is correct** for these changes to work. Please ensure:
+*   Your main NPC GameObject holds the `CharacterSwapRandom`, `NPCStateMachine`, `NavMeshAgent` scripts.
+*   It has two child GameObjects: `NormalModel` (with the original NPC visuals) and `ReaperModel` (with the Grim Reaper visuals).
+*   These child GameObjects are assigned correctly to the `Character Normal` and `Character Alternate` fields in the `CharacterSwapRandom` script.
+
+Please run the game again, let a swap occur, and then **provide all the detailed logs from the console.**
+I will be looking for:
+*   Any `ERROR` message indicating `characterNormal` remained active.
+*   The sequence of `STEP` logs to see if the animation call was made.
+*   Any other errors or warnings.
+
+This new set of logs will give us the final clues to solve the visibility and animation problems.
