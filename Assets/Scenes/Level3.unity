@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.34098378, g: 0.32594272, b: 0.2832786, a: 0.35}
+  m_AmbientSkyColor: {r: 0.35, g: 0.35, b: 0.35, a: 0.35}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -355706,8 +355706,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.97423935, g: 0.931265, b: 0.80936754, a: 1}
-  m_Intensity: 0.7718975
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -355765,7 +355765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947632070}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38897714, y: 0.2369055, z: -0.10422611, w: 0.88414335}
+  m_LocalRotation: {x: 0.4226183, y: 0, z: 0, w: 0.9063078}
   m_LocalPosition: {x: 0, y: 7.058999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -376916,12 +376916,12 @@ MonoBehaviour:
   - {fileID: 1900166054}
   - {fileID: 220066429}
   - {fileID: 1273371689}
-  - {fileID: 0}
+  - {fileID: 2496224068885791480, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
   gameMessageText: {fileID: 1186095575}
   tayaNameText: {fileID: 242531931}
   timerText: {fileID: 879647332}
   subtitlesText: {fileID: 762719610}
-  gameDuration: 10000
+  gameDuration: 95
   gameRunning: 0
   gameUnlocked: 0
   currentTaya: {fileID: 242531929}
@@ -376995,7 +376995,7 @@ MonoBehaviour:
   timeScale: 1
   totalCycleSeconds: 0
   exposePhaseTimeLeft: 1
-  currentPhaseTimeLeft: 0.09367502
+  currentPhaseTimeLeft: 0
   blendSkybox: 1
 --- !u!114 &2125292291
 MonoBehaviour:
@@ -377099,7 +377099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetCapsule: {fileID: 1693257186}
-  hallucinationPrefab: {fileID: 0}
+  hallucinationPrefab: {fileID: 7805230661000975972, guid: 65ad74ddf928a604aa6571858af68c3e, type: 3}
   destroyOriginal: 1
   speedupTime: 90
   speedMultiplier: 2
@@ -377107,6 +377107,7 @@ MonoBehaviour:
   triggerOnPlayerEnter: 0
   sfxSource: {fileID: 0}
   transformClip: {fileID: 0}
+  transformAtRemainingTime: 90
 --- !u!64 &2127138967
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -377315,63 +377316,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1421596341}
   m_SourcePrefab: {fileID: 100100000, guid: 02251cf940ff57a408a75b6e241c837f, type: 3}
---- !u!1001 &3701642467945212084
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2496224068885791480, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_Name
-      value: BloDiab
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.09245169
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.285
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 10.443149
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866900869230004209, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 286cf29a790f0d943bbe8a4585f959a6, type: 3}
 --- !u!1001 &8125696260424640232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -377585,4 +377529,3 @@ SceneRoots:
   - {fileID: 225894848}
   - {fileID: 971545147}
   - {fileID: 1406375056}
-  - {fileID: 3701642467945212084}
