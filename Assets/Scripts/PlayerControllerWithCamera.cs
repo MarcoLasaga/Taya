@@ -58,7 +58,6 @@ public class PlayerControllerWithCamera : MonoBehaviour
     public float footprintInterval = 0.5f;
     private float nextFootprintTime = 0f;
     public float footprintHeightOffset = 0.1f;
-
     private Quaternion cameraOriginalLocalRot;
     float rotationX;
     float rotationY;

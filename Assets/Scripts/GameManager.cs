@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("References")]
+    [Tooltip("Primary player GameObject.")]
     public GameObject player;
+
+    [Tooltip("List of NPC friends (kid1, kid2, kid3, kid4, kid5).")]
     public List<GameObject> friends;
     public List<GameObject> allFriends => friends;
 
@@ -79,6 +82,9 @@ public class GameManager : MonoBehaviour
             StartCoroutine(PlayVoiceAndHideMenu(introVoiceClip, introSubtitle));
         }
 
+        // Ensure the friends list points to the new kid1–kid5 GameObjects
+        AutoPopulateFriendsList();
+
         // Ensure cooldown UI hidden until player triggers the start cube
         if (player != null)
         {
@@ -91,6 +97,23 @@ public class GameManager : MonoBehaviour
         if (dayNightCycle != null)
         {
             dayNightCycle.StartCycle();
+        }
+    }
+
+    // Populate friends list with named taggers (Marcus, Malone, Bella, Totoy, Cornbeef)
+    void AutoPopulateFriendsList()
+    {
+        if (friends == null)
+            friends = new List<GameObject>();
+        else
+            friends.Clear();
+
+        string[] names = { "Marcus", "Malone", "Vella", "Totoy", "Cornbeef, Grim Reaper" };
+        foreach (var n in names)
+        {
+            var go = GameObject.Find(n);
+            if (go != null)
+                friends.Add(go);
         }
     }
 
@@ -114,6 +137,8 @@ public class GameManager : MonoBehaviour
 
         if (gameRunning)
         {
+            // Ensure debug HUD stays visible during gameplay
+            showDebugUI = true;
             UpdateTimer();
         }
     }
@@ -174,8 +199,13 @@ public class GameManager : MonoBehaviour
 
     void StartGame()
     {
+        // Pick Taya before the game starts
+        if (currentTaya == null)
+            PickInitialTaya();
+
         gameRunning = true;
         remainingTime = gameDuration;
+        showDebugUI = true;
 
         // Show gameplay UI
         if (gameMessageText) gameMessageText.gameObject.SetActive(false);
@@ -184,8 +214,6 @@ public class GameManager : MonoBehaviour
         if (subtitlesText) subtitlesText.gameObject.SetActive(false);
 
         if (bgMusic != null && !bgMusic.isPlaying) bgMusic.Play();
-
-        PickInitialTaya();
     }
 
     void UpdateTimer()
@@ -346,6 +374,10 @@ public class GameManager : MonoBehaviour
 
     void PickInitialTaya()
     {
+        // Only choose randomly before the game starts and if none is set
+        if (gameRunning || currentTaya != null)
+            return;
+
         if (friends == null || friends.Count == 0)
         {
             Debug.LogWarning("[GM] No friends assigned.");

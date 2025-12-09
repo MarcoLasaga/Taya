@@ -65,7 +65,6 @@ public class NPCStateMachine : MonoBehaviour
         {
             agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             agent.stoppingDistance = 0f;
-            agent.radius = 0.1f;
             agent.autoBraking = false;
         }
 
@@ -133,6 +132,10 @@ public class NPCStateMachine : MonoBehaviour
         if (!GM.gameRunning) return;
 
         currentState.UpdateState(this);
+
+        // Update Animator Speed similar to player controller logic
+        Vector3 moveInput = agent != null ? agent.velocity : Vector3.zero;
+        UpdateAnimatorSpeed(moveInput);
     }
 
     public void SwitchState(BaseState newState)
@@ -194,5 +197,18 @@ public class NPCStateMachine : MonoBehaviour
         }
 
         speedCoroutine = null;
+    }
+
+    void UpdateAnimatorSpeed(Vector3 moveInput)
+    {
+        if (anim == null)
+            return;
+
+        if (moveInput == Vector3.zero)
+            anim.SetFloat("Speed", 0f);
+        else if (!Input.GetKey(KeyCode.LeftShift))
+            anim.SetFloat("Speed", wanderSpeed);
+        else
+            anim.SetFloat("Speed", tayaSpeed);
     }
 }
