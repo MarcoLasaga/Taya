@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Primary player GameObject.")]
     public GameObject player;
 
-    [Tooltip("List of NPC friends (kid1, kid2, kid3, kid4, kid5).")]
+    [Tooltip("List of NPC friends (kid1, kid2, kid3, kid4, kid5, grimreap).")]
     public List<GameObject> friends;
     public List<GameObject> allFriends => friends;
 
@@ -85,6 +85,9 @@ public class GameManager : MonoBehaviour
         // Ensure the friends list points to the new kid1–kid5 GameObjects
         AutoPopulateFriendsList();
 
+        // Make the player the initial Taya (levels 1–5)
+        SetPlayerAsInitialTaya();
+
         // Ensure cooldown UI hidden until player triggers the start cube
         if (player != null)
         {
@@ -100,6 +103,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void SetPlayerAsInitialTaya()
+    {
+        if (player == null)
+            return;
+
+        currentTaya = player;
+        lastSwapTime = Time.time;
+
+        if (tayaNameText)
+        {
+            tayaNameText.text = $"Taya: {currentTaya.name}";
+            tayaNameText.gameObject.SetActive(true);
+        }
+
+        // Clear any glow on friends; player stays without glow
+        if (friends != null)
+        {
+            foreach (var f in friends)
+            {
+                if (f == null) continue;
+                var glow = f.GetComponent<TayaGlow>();
+                if (glow != null) Destroy(glow);
+            }
+        }
+    }
+
     // Populate friends list with named taggers (Marcus, Malone, Bella, Totoy, Cornbeef)
     void AutoPopulateFriendsList()
     {
@@ -108,7 +137,7 @@ public class GameManager : MonoBehaviour
         else
             friends.Clear();
 
-        string[] names = { "Marcus", "Malone", "Vella", "Totoy", "Cornbeef, Grim Reaper" };
+        string[] names = { "Marcus", "Malone", "Bella", "Totoy", "Cornbeef" };
         foreach (var n in names)
         {
             var go = GameObject.Find(n);

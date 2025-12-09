@@ -1,20 +1,21 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Level 2 adjustments:
-/// - Sets game duration to 3 minutes (180s)
+/// - Sets game duration (default 300s = 5 minutes)
 /// - Makes NPCs faster (multiplier)
 /// - Makes player slower (multipliers for walk/sprint)
 /// - Increases jump and dash cooldowns (longer timers)
-/// 
+///
 /// Attach this to a GameObject in your Level 2 scene (for example the same GameObject as GameManager).
 /// </summary>
-[DefaultExecutionOrder(-100)] // try to apply the duration before GameManager.Start runs
+[DefaultExecutionOrder(-100)] // apply duration before GameManager.Start runs
 public class Level2GameManager : MonoBehaviour
 {
     [Header("Level 2 Settings")]
-    [Tooltip("Level duration in seconds (3 minutes = 180s)")]
-    public float levelDuration = 180f;
+    [Tooltip("Level duration in seconds (set to 300 for 5 minutes).")]
+    public float levelDuration = 300f;
 
     [Tooltip("Multiply NPC speeds by this ( >1 makes enemies faster )")]
     public float enemySpeedMultiplier = 1.4f;
@@ -33,6 +34,11 @@ public class Level2GameManager : MonoBehaviour
 
     void Awake()
     {
+        // Only apply overrides in the Level2 scene to avoid changing other levels
+        var sceneName = SceneManager.GetActiveScene().name;
+        if (!sceneName.Contains("Level2"))
+            return;
+
         var gm = FindObjectOfType<GameManager>();
         if (gm != null)
         {
@@ -47,6 +53,10 @@ public class Level2GameManager : MonoBehaviour
 
     void Start()
     {
+        var sceneName = SceneManager.GetActiveScene().name;
+        if (!sceneName.Contains("Level2"))
+            return;
+
         ApplyPlayerAdjustments();
         ApplyEnemyAdjustments();
     }

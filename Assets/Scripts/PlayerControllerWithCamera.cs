@@ -306,6 +306,14 @@ public class PlayerControllerWithCamera : MonoBehaviour
         var gm = FindObjectOfType<GameManager>();
         if (gm != null)
         {
+            // Only the current Taya can transfer the tag
+            if (gm.currentTaya != gameObject)
+                return;
+
+            // Prevent redundant swaps: don't swap if the collision target is already the Taya
+            if (col.gameObject == gm.currentTaya)
+                return;
+
             bool isFriendTag = col.gameObject.CompareTag("Friend");
             bool inFriendsList = (gm.friends != null && gm.friends.Contains(col.gameObject));
 

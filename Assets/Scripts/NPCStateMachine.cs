@@ -151,12 +151,21 @@ public class NPCStateMachine : MonoBehaviour
     {
         if (!GM.gameRunning) return;
 
-        // Prevent hallucinations from tagging others (only normal Taya can swap)
-        if (isTaya && !gameObject.CompareTag("Hallucination"))
-        {
-            if (col.gameObject.CompareTag("Player"))
-                GM.SwapTaya(col.gameObject);
+        // Only the current Taya can transfer the tag
+        if (!isTaya || gameObject.CompareTag("Hallucination"))
+            return;
 
+        // Prevent redundant swaps: don't swap if the collision target is already the Taya
+        if (col.gameObject == GM.currentTaya)
+            return;
+
+        // Allow NPC-to-player, NPC-to-NPC, and player-to-NPC swaps
+        if (col.gameObject.CompareTag("Player"))
+        {
+            GM.SwapTaya(col.gameObject);
+        }
+        else
+        {
             NPCStateMachine f = col.gameObject.GetComponent<NPCStateMachine>();
             if (f != null)
             {
